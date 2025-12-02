@@ -46,7 +46,7 @@ This environment is ideal for practising IT Support, Desktop Support, Service De
 ---
 
 ## 3️⃣ Windows Server 2025 Virtual Machine  
-- **VM Name:** `AD-DC01`  
+- **VM Name:** `AD-Lab-VM`  
 - **Size:** `B2ls_v2`  
 - **OS:** Windows Server 2025 Datacenter  
 - **Inbound Ports:** RDP (3389)
