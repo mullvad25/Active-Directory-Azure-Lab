@@ -43,6 +43,8 @@ This environment is ideal for practising IT Support, Desktop Support, Service De
 - **Subnet:** `default`  
 - **Address Space:** `10.0.0.0/24`
 
+![VN](Screenshots/AD-LAB-VN.PNG)
+
 ---
 
 ## 3️⃣ Windows Server 2025 Virtual Machine  
