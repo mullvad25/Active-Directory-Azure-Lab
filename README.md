@@ -133,34 +133,132 @@ This already demonstrates Tier 1 and Tier 2 support capabilities.
 | Static Private IP Configuration | ![Static IP](Screenshots/static.PNG) |
 | Domain Controller Confirmation | ![Domain Controller](Screenshots/Domain%20Controller.PNG) |
 
+# 📌 Phase 2 — Active Directory Foundation Completed 
+
+Phase 2 establishes the full Active Directory environment inside `lab.local`.  
+This includes departments, users, admin accounts, service accounts, onboarding accounts, RDP permissions, and domain-level security settings.
+
 ---
 
-# 🚀 Upcoming Features (Planned)
+## 🗂️ Organizational Units (OUs) Created
 
-Next, this lab will expand into a full help desk / sysadmin environment:
+A clean, enterprise-style OU structure was created under `lab.local`:
 
-### ✔ Create Organizational Units (OUs)  
-### ✔ Add realistic users (20–50 recommended)  
-### ✔ Create security groups  
-### ✔ Implement Group Policy (GPOs)  
-- Password policy  
-- Desktop wallpaper  
-- Software restriction  
-- Mapped drives  
-- Screen lock timeout  
+- **_Admins**
+- **_Users**
+- **_Groups**
+- **_Computers**
+- **_Departments**
+  - IT
+  - HR
+  - Finance
+  - Sales
+  - Operations
 
-### ✔ Deploy Windows 11 VM  
-- Join it to the domain  
-- Sign in as a domain user  
+📸 *OU Structure:*  
+![OU Structure](Screenshots/Phase2/OU-Structure.png)
 
-### ✔ Help Desk Scenarios  
-- Password resets  
-- Unlocking user accounts  
-- Permissions fixes  
-- Group membership updates  
-- Printer access tasks  
-- Map network drives  
-- DNS troubleshooting  
+---
+
+## 👥 Standard User Accounts (10 Users)
+
+10 realistic employee accounts were added into `_Users`, then moved into their respective department OUs.
+
+| Name | Username | Department |
+|------|----------|------------|
+| Adam Reid | areid | IT |
+| Daniel Grant | dgrant | IT |
+| Sarah Khan | skhan | HR |
+| Laura Ibrahim | librahim | HR |
+| Michael Brown | mbrown | Finance |
+| Martin Stone | mstone | Finance |
+| Emma Patel | epatel | Sales |
+| Aisha Rahman | arahman | Sales |
+| Jason Lee | jlee | Operations |
+| Chloe Adams | cadams | Operations |
+
+All users were created with:
+- No forced password change at next logon  
+- Password never expires: **disabled**  
+- Accounts enabled  
+
+📸 *Users in Department OUs:*  
+![Departments](Screenshots/Phase2/Departments.png)
+
+---
+
+## 🔐 Privileged & Special Accounts
+
+### 🛠️ IT Admin (Domain Administrator)
+- Username: `itadmin`
+- Added to:
+  - Domain Admins  
+  - Enterprise Admins  
+  - Schema Admins  
+- Password never expires: **enabled**
+
+📸 *IT Admin Group Membership:*  
+![IT Admin](Screenshots/Phase2/ITAdmin-GroupMembership.png)
+
+---
+
+### ⚙️ Service Account (SQL Service)
+- Username: `sqlsvc`
+- Password never expires: **enabled**  
+- User cannot change password: **enabled**
+
+📸 *Service Account Settings:*  
+![Service Account](Screenshots/Phase2/ServiceAccount.png)
+
+---
+
+### 🚫 Onboarding Account
+- Username: `new.starter`
+- Account disabled (greyed-out icon)  
+- Simulates HR pre-staging
+
+📸 *Disabled Account:*  
+![Disabled Account](Screenshots/Phase2/DisabledAccount.png)
+
+---
+
+### 🔒 Locked-Out User (Help Desk Simulation)
+- Username: `locktest`
+- Lockout triggered via incorrect password attempts  
+- Unlocked through ADUC using Account tab  
+
+📸 *Locked-Out Account:*  
+![Locktest Locked Out](Screenshots/Phase2/LocktestLockedOut.png)
+
+---
+
+## 🔐 RDP & User Logon Rights Configuration
+
+To allow non-admin users (like `locktest`) to sign into the server via RDP:
+
+### ✔ Added to Remote Desktop Users
+- `locktest` was added to:
+  - **Remote Desktop Users** (local group)
+
+### ✔ Updated Local Security Policy
+- Confirmed `Remote Desktop Users` has RDP logon rights  
+
+---
+
+## 🔄 Account Lockout Policy (Domain Security)
+
+Configured via **Default Domain Policy**:
+
+- **Lockout threshold:** 3 attempts  
+- **Lockout duration:** 30 minutes  
+- **Reset counter:** 30 minutes  
+
+Lockout was successfully tested and confirmed using the `locktest` account.
+
+---
+
+This completes Phase 2 of the Active Directory setup.  
+Next phase: **Phase 3 — Security Groups & Role-Based Access (RBAC)**.
 
 ---
 
