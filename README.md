@@ -135,14 +135,14 @@ This already demonstrates Tier 1 and Tier 2 support capabilities.
 
 # 📌 Phase 2 — Active Directory Foundation Completed 
 
-Phase 2 establishes the full Active Directory environment inside `lab.local`.  
-This includes departments, users, admin accounts, service accounts, onboarding accounts, RDP permissions, and domain-level security settings.
+Phase 2 establishes the core Active Directory environment inside `lab.local`.  
+This includes departments, users, admin accounts, service accounts, onboarding accounts, RDP permissions, and domain-level security policies.
 
 ---
 
 ## 🗂️ Organizational Units (OUs) Created
 
-A clean, enterprise-style OU structure was created under `lab.local`:
+A clean, enterprise-style OU structure was created:
 
 - **_Admins**
 - **_Users**
@@ -156,7 +156,7 @@ A clean, enterprise-style OU structure was created under `lab.local`:
   - Operations
 
 📸 *OU Structure:*  
-![OU Structure](Screenshots/Phase2/OU-Structure.png)
+![OU Structure](Screenshots/Full%20OU%20Structure.PNG)
 
 ---
 
@@ -178,12 +178,12 @@ A clean, enterprise-style OU structure was created under `lab.local`:
 | Chloe Adams | cadams | Operations |
 
 All users were created with:
-- No forced password change at next logon  
+- No forced password change at logon  
 - Password never expires: **disabled**  
 - Accounts enabled  
 
 📸 *Users in Department OUs:*  
-![Departments](Screenshots/Phase2/Departments.png)
+![Department Users](Screenshots/Department%20OUs%20with%20users.PNG)
 
 ---
 
@@ -195,53 +195,52 @@ All users were created with:
   - Domain Admins  
   - Enterprise Admins  
   - Schema Admins  
-- Password never expires: **enabled**
+- Password never expires: enabled
 
 📸 *IT Admin Group Membership:*  
-![IT Admin](Screenshots/Phase2/ITAdmin-GroupMembership.png)
+![IT Admin Group Membership](Screenshots/IT%20Admin%20group%20membership.PNG)
 
 ---
 
 ### ⚙️ Service Account (SQL Service)
 - Username: `sqlsvc`
-- Password never expires: **enabled**  
-- User cannot change password: **enabled**
+- Password never expires: enabled  
+- User cannot change password: enabled  
 
 📸 *Service Account Settings:*  
-![Service Account](Screenshots/Phase2/ServiceAccount.png)
+![Service Account Password Settings](Screenshots/Service%20account%20password%20settings.PNG)
 
 ---
 
 ### 🚫 Onboarding Account
 - Username: `new.starter`
-- Account disabled (greyed-out icon)  
+- Account disabled  
 - Simulates HR pre-staging
 
 📸 *Disabled Account:*  
-![Disabled Account](Screenshots/Phase2/DisabledAccount.png)
+![Disabled Onboarding Account](Screenshots/Disabled%20onboarding%20account.PNG)
 
 ---
 
 ### 🔒 Locked-Out User (Help Desk Simulation)
 - Username: `locktest`
-- Lockout triggered via incorrect password attempts  
-- Unlocked through ADUC using Account tab  
+- Locked via incorrect login attempts  
+- Unlocked through ADUC (Account tab)
 
 📸 *Locked-Out Account:*  
-![Locktest Locked Out](Screenshots/Phase2/LocktestLockedOut.png)
+![Locked Out Account](Screenshots/LocktestLockedOut.PNG)
 
 ---
 
 ## 🔐 RDP & User Logon Rights Configuration
 
-To allow non-admin users (like `locktest`) to sign into the server via RDP:
+To allow non-admin users (like `locktest`) to use RDP:
 
-### ✔ Added to Remote Desktop Users
-- `locktest` was added to:
-  - **Remote Desktop Users** (local group)
+### ✔ Added to Remote Desktop Users  
+- `locktest` added to the **Remote Desktop Users** local group  
 
-### ✔ Updated Local Security Policy
-- Confirmed `Remote Desktop Users` has RDP logon rights  
+### ✔ Updated Local Security Policy  
+- Confirmed Remote Desktop Users has RDP logon rights  
 
 ---
 
@@ -249,16 +248,16 @@ To allow non-admin users (like `locktest`) to sign into the server via RDP:
 
 Configured via **Default Domain Policy**:
 
-- **Lockout threshold:** 3 attempts  
-- **Lockout duration:** 30 minutes  
-- **Reset counter:** 30 minutes  
+- Lockout threshold: 3 attempts  
+- Lockout duration: 30 minutes  
+- Reset counter after: 30 minutes  
 
-Lockout was successfully tested and confirmed using the `locktest` account.
+Successfully tested with `locktest`.
 
 ---
 
-This completes Phase 2 of the Active Directory setup.  
-Next phase: **Phase 3 — Security Groups & Role-Based Access (RBAC)**.
+This completes Phase 2.  
+Next: **Phase 3 — Security Groups & Role-Based Access (RBAC)**.
 
 ---
 
