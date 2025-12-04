@@ -464,7 +464,7 @@ Root: \\AD-Lab-VM\Shares\
 | Operations| O:           | \\AD-Lab-VM\Shares\Operations|
 
 ### Screenshot (IT)
-![IT Drive Mapping](Screenshots/IT_DriveMapping.PNG)
+![IT Drive Mapping](Screenshots/IT_DriveMapping1.PNG)
 
 ---
 
