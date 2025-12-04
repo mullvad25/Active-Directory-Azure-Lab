@@ -376,6 +376,159 @@ This phase established:
 These are core skills used daily in IT Support, Service Desk and Junior Sysadmin roles.
 
 ---
+# ⭐ Phase 4. Group Policy Configuration
+
+This phase introduces organisation wide security controls and user experience settings using Group Policy on the domain controller AD-Lab-VM. Policies include password requirements, lockout rules, login banners, mapped drives and user restrictions.
+
+---
+
+# 👉 Step 0. Open Group Policy Management
+
+On AD-Lab-VM:
+
+- Start  
+- Type gpmc.msc  
+- Open Group Policy Management  
+
+All GPOs in this phase are created and linked here.
+
+---
+
+# ⭐ 4.1 Domain Security Policy  
+**GPO Name:** ORG-SecurityPolicy  
+**Linked To:** lab.local
+
+Configured:
+
+- Minimum password length set to 8  
+- Password complexity enabled  
+- Maximum password age set to 90 days  
+- Minimum password age set to 1 day  
+- Password history set to 5 remembered  
+- Account lockout threshold set to 5 attempts  
+- Lockout duration set to 15 minutes  
+- Reset counter after 15 minutes  
+
+### Screenshots  
+![Password Policy](screenshots/SecurityPolicy_PasswordSettings.PNG)  
+![Lockout Policy](screenshots/SecurityPolicy_LockoutSettings.PNG)
+
+---
+
+# ⭐ 4.2 Login Banner  
+**GPO Name:** ORG-LoginBanner  
+**Linked To:** lab.local
+
+Displays a login warning message to all domain users.
+
+Configured:
+
+- Message title: Authorised Access Only  
+- Message text: This system is for authorised use only. Activity may be monitored and recorded.  
+
+### Screenshot  
+![Login Banner](screenshots/LoginBanner.PNG)
+
+---
+
+# ⭐ 4.3 Block USB Storage  
+**GPO Name:** ORG-DisableUSB  
+**Linked To:** _Users OU
+
+USB storage devices are restricted for standard users.
+
+Configured under System → Removable Disks:
+
+- Deny execute access  
+- Deny read access  
+- Deny write access  
+
+### Screenshot  
+![USB Block Policy](screenshots/DisableUSB.PNG)
+
+---
+
+# ⭐ 4.4 Department Drive Mapping  
+Mapped drives are assigned per department.  
+Only IT mapping is shown as an example.
+
+**UNC Paths:**  
+Root: \\AD-Lab-VM\Shares\
+
+| Department | Drive Letter | Path |
+|-----------|--------------|------------------------------|
+| IT        | I:           | \\AD-Lab-VM\Shares\IT        |
+| HR        | H:           | \\AD-Lab-VM\Shares\HR        |
+| Finance   | F:           | \\AD-Lab-VM\Shares\Finance   |
+| Sales     | S:           | \\AD-Lab-VM\Shares\Sales     |
+| Operations| O:           | \\AD-Lab-VM\Shares\Operations|
+
+### Screenshot (IT)
+![IT Drive Mapping](screenshots/IT_DriveMapping.PNG)
+
+---
+
+# ⭐ 4.5 Corporate Wallpaper  
+**GPO Name:** ORG-Wallpaper  
+**Linked To:** _Users OU
+
+Wallpaper stored in:
+
+```
+\\AD-Lab-VM\NETLOGON\wallpaper.jpg
+```
+
+Applied using Desktop Wallpaper policy set to Fill.
+
+### Screenshot  
+![Wallpaper Policy](screenshots/DesktopWallpaper.PNG)
+
+---
+
+# ⭐ 4.6 Disable Control Panel  
+**GPO Name:** ORG-DisableControlPanel  
+**Linked To:** _Users OU
+
+Prevents standard users from opening Control Panel or PC Settings.
+
+### Screenshot  
+![Control Panel Disabled](screenshots/DisableControlPanel.PNG)
+
+---
+
+# ⭐ 4.7 Apply All GPOs
+
+On AD-Lab-VM:
+
+```
+gpupdate /force
+```
+
+### Screenshot  
+![GPO Update](screenshots/GPOUpdate.PNG)
+
+---
+
+# ⭐ 4.8 Testing (Performed on Windows 11 VM)
+
+Testing completed while logged in as the IT user: lab\areid
+
+Verified:
+
+- I drive successfully mapped  
+- Corporate wallpaper applied  
+- Control Panel blocked  
+
+### Screenshots  
+![Drive Mapping Test](screenshots/Test_DriveMappings.PNG)  
+![Wallpaper Test](screenshots/Test_Wallpaper.PNG)  
+![Control Panel Test](screenshots/Test_ControlPanel.PNG)
+
+---
+
+# Phase Outcome
+
+Phase 4 successfully implemented organisation wide Group Policy settings including password policies, login warnings, USB restrictions, mapped drives, wallpapers and user restrictions. These controls standardise configuration and improve security across the lab environment.
 
 
 ---
